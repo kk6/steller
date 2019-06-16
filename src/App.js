@@ -3,16 +3,17 @@ import "./App.css";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
-    <div
-      className="todo"
-      style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
-    >
-      {todo.text}
+    <div className="todo">
+      <label class="checkbox" disabled={todo.isCompleted}>
+        <input
+          type="checkbox"
+          checked={todo.isCompleted}
+          onClick={() => completeTodo(index)}
+        />
+        {todo.text}
+      </label>
 
       <div>
-        <button className="button" onClick={() => completeTodo(index)}>
-          Complete
-        </button>
         <button className="button" onClick={() => removeTodo(index)}>
           <span class="icon">
             <i class="fas fa-trash-alt" />

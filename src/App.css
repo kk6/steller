@@ -21,3 +21,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.todo input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
