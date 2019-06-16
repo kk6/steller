@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
@@ -47,7 +47,8 @@ function TodoForm({ addTodo }) {
 }
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const initialTodos = localStorage.getItem("steller-todos") || [];
+  const [todos, setTodos] = useState(JSON.parse(initialTodos));
 
   const addTodo = text => {
     const newTodos = [...todos, { text }];
@@ -65,6 +66,8 @@ function App() {
     newTodos.splice(index, 1);
     setTodos(newTodos);
   };
+
+  useEffect(() => localStorage.setItem("steller-todos", JSON.stringify(todos)));
 
   return (
     <div className="app">
