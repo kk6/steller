@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Section, Container } from "bloomer";
 import "./App.css";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
@@ -72,18 +73,20 @@ function App() {
 
   return (
     <div className="app">
-      <div className="todo-list">
-        {todos.map((todo, index) => (
-          <Todo
-            key={index}
-            index={index}
-            todo={todo}
-            completeTodo={completeTodo}
-            removeTodo={removeTodo}
-          />
-        ))}
-        <TodoForm addTodo={addTodo} />
-      </div>
+      <Section>
+        <Container>
+          {todos.map((todo, index) => (
+            <Todo
+              key={index}
+              index={index}
+              todo={todo}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+            />
+          ))}
+          <TodoForm addTodo={addTodo} />
+        </Container>
+      </Section>
     </div>
   );
 }
