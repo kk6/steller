@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Section, Container, Button, Content } from "bloomer";
+import { Box, Delete, Section, Container, Button, Content } from "bloomer";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
@@ -13,13 +13,7 @@ function Todo({ todo, index, completeTodo, removeTodo }) {
         {todo.text}
       </label>
 
-      <div>
-        <button className="button" onClick={() => removeTodo(index)}>
-          <span class="icon">
-            <i class="fas fa-trash-alt" />
-          </span>
-        </button>
-      </div>
+      <Delete onClick={() => removeTodo(index)} />
     </div>
   );
 }
@@ -84,13 +78,15 @@ function TodoList(props) {
             <h2>{todolist.name}</h2>
 
             {todos.map((todo, index) => (
-              <Todo
-                key={index}
-                index={index}
-                todo={todo}
-                completeTodo={completeTodo}
-                removeTodo={removeTodo}
-              />
+              <Box>
+                <Todo
+                  key={index}
+                  index={index}
+                  todo={todo}
+                  completeTodo={completeTodo}
+                  removeTodo={removeTodo}
+                />
+              </Box>
             ))}
             <TodoForm addTodo={addTodo} />
           </Content>
