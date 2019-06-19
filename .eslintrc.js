@@ -11,6 +11,11 @@ module.exports = {
     }
   },
   rules: {
-    "sort-imports": "error"
+    "sort-imports": [
+      "error",
+      {
+        ignoreDeclarationSort: true
+      }
+    ]
   }
 };
