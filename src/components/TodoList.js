@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Section, Container } from "bloomer";
+import { Box, Section, Container, Button, Content } from "bloomer";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
@@ -47,8 +47,12 @@ function TodoForm({ addTodo }) {
   );
 }
 
-function TodoList() {
-  const initialTodos = localStorage.getItem("steller-todos") || [];
+function TodoList(props) {
+  const todos_key = `steller-todos-${props.listId}`;
+  const todolist = JSON.parse(localStorage.getItem("steller-todolists"))[
+    props.listId
+  ];
+  const initialTodos = localStorage.getItem(todos_key) || "[]";
   const [todos, setTodos] = useState(JSON.parse(initialTodos));
 
   const addTodo = text => {
@@ -68,21 +72,29 @@ function TodoList() {
     setTodos(newTodos);
   };
 
-  useEffect(() => localStorage.setItem("steller-todos", JSON.stringify(todos)));
+  useEffect(() => localStorage.setItem(todos_key, JSON.stringify(todos)));
 
   return (
     <Section>
       <Container>
-        {todos.map((todo, index) => (
-          <Todo
-            key={index}
-            index={index}
-            todo={todo}
-            completeTodo={completeTodo}
-            removeTodo={removeTodo}
-          />
-        ))}
-        <TodoForm addTodo={addTodo} />
+        <Box>
+          <Content>
+            <Button onClick={() => window.history.back()}>戻る</Button>
+
+            <h2>{todolist.name}</h2>
+
+            {todos.map((todo, index) => (
+              <Todo
+                key={index}
+                index={index}
+                todo={todo}
+                completeTodo={completeTodo}
+                removeTodo={removeTodo}
+              />
+            ))}
+            <TodoForm addTodo={addTodo} />
+          </Content>
+        </Box>
       </Container>
     </Section>
   );
