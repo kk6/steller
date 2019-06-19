@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "@reach/router";
-import { Section, Content, Container, Box } from "bloomer";
+import { Box, Container, Content, Section } from "bloomer";
 
 function TodoList({ index, name }) {
   return (

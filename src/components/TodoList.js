@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Box, Delete, Section, Container, Button, Content } from "bloomer";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Container, Content, Delete, Section } from "bloomer";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
