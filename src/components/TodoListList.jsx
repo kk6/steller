@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "@reach/router";
 import { Box, Container, Content, Section } from "bloomer";
 
 function TodoList({ index, name }) {
   return (
     <li>
-      <Link to={"lists/" + index}>{name}</Link>
+      <Link to={`lists/${index}`}>{name}</Link>
     </li>
   );
 }
+TodoList.propTypes = {
+  index: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired
+};
 
 function ListForm({ addList }) {
   const [value, setValue] = useState("");
@@ -32,6 +37,9 @@ function ListForm({ addList }) {
     </form>
   );
 }
+ListForm.propTypes = {
+  addList: PropTypes.func.isRequired
+};
 
 function TodoListList() {
   const initialLists = localStorage.getItem("steller-todolists") || "[]";

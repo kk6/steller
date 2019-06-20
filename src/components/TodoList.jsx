@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Container, Content, Delete, Section } from "bloomer";
+import PropTypes from "prop-types";
+import {
+  Box,
+  Button,
+  Container,
+  Content,
+  Delete,
+  Field,
+  Control,
+  Checkbox,
+  Section
+} from "bloomer";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
     <div className="todo">
-      <label class="checkbox" disabled={todo.isCompleted}>
-        <input
-          type="checkbox"
-          checked={todo.isCompleted}
-          onClick={() => completeTodo(index)}
-        />
-        {todo.text}
-      </label>
-
+      <Field>
+        <Control>
+          <Checkbox
+            checked={todo.isCompleted}
+            onClick={() => completeTodo(index)}
+          >
+            {todo.text}
+          </Checkbox>
+        </Control>
+      </Field>
       <Delete onClick={() => removeTodo(index)} />
     </div>
   );
 }
+Todo.propTypes = {
+  todo: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    isCompleted: PropTypes.bool.isRequired
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+  completeTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired
+};
 
 function TodoForm({ addTodo }) {
   const [value, setValue] = useState("");
@@ -40,13 +61,17 @@ function TodoForm({ addTodo }) {
     </form>
   );
 }
+TodoForm.propTypes = {
+  addTodo: PropTypes.func.isRequired
+};
 
 function TodoList(props) {
-  const todos_key = `steller-todos-${props.listId}`;
+  const { listId } = props;
+  const todosKey = `steller-todos-${listId}`;
   const todolist = JSON.parse(localStorage.getItem("steller-todolists"))[
-    props.listId
+    listId
   ];
-  const initialTodos = localStorage.getItem(todos_key) || "[]";
+  const initialTodos = localStorage.getItem(todosKey) || "[]";
   const [todos, setTodos] = useState(JSON.parse(initialTodos));
 
   const addTodo = text => {
@@ -66,7 +91,7 @@ function TodoList(props) {
     setTodos(newTodos);
   };
 
-  useEffect(() => localStorage.setItem(todos_key, JSON.stringify(todos)));
+  useEffect(() => localStorage.setItem(todosKey, JSON.stringify(todos)));
 
   return (
     <Section>
@@ -80,7 +105,6 @@ function TodoList(props) {
             {todos.map((todo, index) => (
               <Box>
                 <Todo
-                  key={index}
                   index={index}
                   todo={todo}
                   completeTodo={completeTodo}
@@ -95,5 +119,8 @@ function TodoList(props) {
     </Section>
   );
 }
+TodoList.propTypes = {
+  listId: PropTypes.number.isRequired
+};
 
 export default TodoList;

@@ -1,21 +1,20 @@
 module.exports = {
-  parser: "babel-eslint",
-  parserOptions: {
-    sourceType: "module",
-    allowImportExportEverywhere: false,
-    ecmaFeatures: {
-      globalReturn: false
-    },
-    babelOptions: {
-      configFile: "path/to/config.js"
-    }
+  env: {
+    browser: true,
+    es6: true
   },
-  rules: {
-    "sort-imports": [
-      "error",
-      {
-        ignoreDeclarationSort: true
-      }
-    ]
-  }
+  extends: ["airbnb", "prettier"],
+  globals: {
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly"
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 2018,
+    sourceType: "module"
+  },
+  plugins: ["react"],
+  rules: {}
 };
