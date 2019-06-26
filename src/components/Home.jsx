@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Link } from "@reach/router";
 import { Box, Container, Content, Section } from "bloomer";
 
-function TodoList({ index, name }) {
+function ListLink({ index, name }) {
   return (
     <li>
       <Link to={`lists/${index}`}>{name}</Link>
     </li>
   );
 }
-TodoList.propTypes = {
+ListLink.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired
 };
@@ -41,7 +41,7 @@ ListForm.propTypes = {
   addList: PropTypes.func.isRequired
 };
 
-function TodoListList() {
+function Home() {
   const initialLists = localStorage.getItem("steller-todolists") || "[]";
   const [lists, setLists] = useState(JSON.parse(initialLists));
 
@@ -61,7 +61,7 @@ function TodoListList() {
           <Content>
             <ol>
               {lists.map((list, index) => (
-                <TodoList index={index} name={list.name} />
+                <ListLink index={index} name={list.name} />
               ))}
             </ol>
           </Content>
@@ -72,4 +72,4 @@ function TodoListList() {
   );
 }
 
-export default TodoListList;
+export default Home;
